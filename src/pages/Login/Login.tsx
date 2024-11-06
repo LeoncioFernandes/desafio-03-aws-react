@@ -1,15 +1,16 @@
-import { app } from "../../firebaseConfig";
-import { GithubAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-
 import { FiArrowRight } from "react-icons/fi";
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { FaTriangleExclamation } from "react-icons/fa6";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useUserLoged } from "../../context/useLogedUser";
+import { useGitHubSignUp } from "../../hooks/useGitHubSignUp";
 
 export default function Login() {
 
   const [userName, setUserName] = useState<string>('');
   const [viewMessage, setViewMessage] = useState<boolean>(false);
+  const handleGitHubSignUp = useGitHubSignUp();
+  const userLoged = useUserLoged();
 
   function onChangeName(e: ChangeEvent<HTMLInputElement>){
     setUserName(e.target.value)
@@ -27,23 +28,15 @@ export default function Login() {
     console.log(userName);
   }
 
-  const gitHubProvider = new GithubAuthProvider();
-  const auth = getAuth(app);
-  function gitHubSignUp(){
-    signInWithPopup(auth, gitHubProvider)
-      .then((response) => {
-        console.log(response.user);
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
+  useEffect(() => {
+    userLoged.removeUserLoged();
+  }, [])
+  
   return (
     <div className='h-svh flex flex-col justify-center items-center gap-6 mx-3'>
       <h1 className='font-bold text-center text-40px'>Digite o nome do usuário que deseja buscar</h1>
       
-      <form onSubmit={onSubmit} className='flex flex-col max-w-[788px] w-full gap-1' action="">
+      <form onSubmit={onSubmit} className='flex flex-col max-w-[788px] w-full gap-1'>
         <div className='flex gap-4'>
           <input
             className='py-2 px-4 border border-primary_text rounded-2xl bg-secondary_text text-2xl font-medium leading-10 placeholder:text-tertiary_text placeholder:font-normal grow'
@@ -83,7 +76,7 @@ export default function Login() {
         <p className='font-bold text-2xl leading-10'>Acesse sua conta com</p>
         <button
           className='flex items-center gap-[10px] px-6 py-1 font-bold text-base leading-10 text-secondary_text bg-dark_green rounded-3xl'
-          onClick={() => gitHubSignUp()}
+          onClick={handleGitHubSignUp}
         >
           <TbBrandGithubFilled className='w-6 h-6' />
           <div>Github</div>
