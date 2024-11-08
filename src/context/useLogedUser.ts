@@ -11,7 +11,9 @@ export const useUserLoged = create<UserLogedState>()(
               displayName: undefined, 
               email: undefined, 
               photoURL: undefined, 
-              accessToken: undefined
+              accessToken: undefined,
+              providerId: undefined,
+              screenName: undefined
             },
             addUserLoged: (user) => set(() => ({
               userLoged: user
@@ -22,7 +24,9 @@ export const useUserLoged = create<UserLogedState>()(
                 displayName: undefined, 
                 email: undefined, 
                 photoURL: undefined, 
-                accessToken: undefined
+                accessToken: undefined,
+                providerId: undefined,
+                screenName: undefined
               },
             })),
         }),

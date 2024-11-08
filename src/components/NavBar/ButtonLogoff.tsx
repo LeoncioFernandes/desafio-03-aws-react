@@ -1,21 +1,21 @@
-import React from 'react'
-import { useUserLoged } from '../../context/useLogedUser'
-import { useNavigate } from "react-router-dom";
 
-export default function ButtonLogoff() {
+type LogoffButton = {
+  onLogoffButton: (isLogoff: boolean) => void;
+  urlImage: string
+};
 
-  const userLoged = useUserLoged();
-  const navigate = useNavigate();
+export default function ButtonLogoff({onLogoffButton, urlImage}: LogoffButton) {
 
   function Logoff(){
-    userLoged.removeUserLoged();
-    return navigate('/');
+    onLogoffButton(true);
   }
 
   return (
     <button className='flex items-center gap-4' onClick={() => Logoff()}>
       <div>Sair</div>
-      <div className='w-[77px] h-[77px] bg-primary_color rounded-full'></div>
+      <div className='w-[77px] h-[77px] bg-primary_color rounded-full overflow-hidden'>
+        <img className="" src={urlImage} alt="UserImage" />
+      </div>
     </button>
   )
 }

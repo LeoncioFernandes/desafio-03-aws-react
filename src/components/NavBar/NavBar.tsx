@@ -1,13 +1,38 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import ButtonLogoff from './ButtonLogoff'
-import { useUserLoged } from '../../context/useLogedUser'
 import ButtonLogin from './ButtonLogin';
 import { FaPen } from 'react-icons/fa6';
-import { FaCheck } from "react-icons/fa6";
+import { useCreateLoginUser } from '../../context/useCreateLoginUser';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 export default function NavBar() {
 
-  const userLoged = useUserLoged().userLoged;
+  const [viewLogoff, setViewLogoof] = useState<boolean>(true)
+
+  const {uid} = useParams<{uid: string}>();
+  const navigate = useNavigate();
+  const user = useCreateLoginUser();
+
+
+  function setLogoff(logoof: boolean){
+    if(logoof){
+      setViewLogoof(false)
+      user.logoffUserByUid(uid || "")
+      navigate("/")
+    }
+    else{
+      setViewLogoof(true)
+    }
+  }
+
+  useEffect(() => {
+    if(!user.getUserByUid(uid || "")?.accessToken){
+      setViewLogoof(false);
+    }else{
+      setViewLogoof(true);
+    }
+  }, [user.getUserByUid(uid || "")?.accessToken])
 
   return (
     <nav className='fixed flex flex-col gap-8 top-0 left-0 right-0 z-10'>
@@ -19,17 +44,19 @@ export default function NavBar() {
           <li>Contato</li>
         </ul>
         <div className='absolute right-8 top-4'>
-          {userLoged.accessToken ? (
-            <ButtonLogoff />
+          {viewLogoff ? (
+            <ButtonLogoff onLogoffButton={setLogoff} urlImage={user.getUserByUid(uid || "")?.photoURL || ""} />
             ) : (
             <ButtonLogin />
           )}
         </div>
       </div>
-      <div className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
-        <FaPen className='text-secondary_text w-full h-full' />
-        {/* <FaCheck className='text-secondary_text w-full h-full' /> */}
-      </div>
+      {user.getUserByUid(uid || "")?.accessToken && (
+        <div className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
+          <FaPen className='text-secondary_text w-full h-full' />
+          {/* <FaCheck className='text-secondary_text w-full h-full' /> */}
+        </div>
+      )}
     </nav>
   )
 }

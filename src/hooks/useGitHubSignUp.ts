@@ -2,7 +2,6 @@ import { app } from "../firebaseConfig";
 import { GithubAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { User, UserResponse } from "../types/UserTypes";
 import { useCreateLoginUser } from "../context/useCreateLoginUser";
-import { useUserLoged } from "../context/useLogedUser";
 import { useNavigate } from "react-router-dom";
 
 export const useGitHubSignUp = () => {
@@ -11,24 +10,35 @@ export const useGitHubSignUp = () => {
   const auth = getAuth(app);
 
   const createLoginUser = useCreateLoginUser();
-  const userLoged = useUserLoged();
   const navigate = useNavigate();
 
   const handleGitHubSignUp = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((response) => {
-        const {displayName, email, photoURL, uid, stsTokenManager }: UserResponse = response.user.toJSON() as UserResponse
+        
+        const {displayName, email, photoURL, uid, stsTokenManager, reloadUserInfo }: UserResponse = response.user as unknown as UserResponse
+        
         const user: User = {
           uid: uid,
           displayName: displayName || "",
+          providerId: reloadUserInfo.providerUserInfo[0].providerId,
+          screenName: reloadUserInfo.providerUserInfo[0].screenName,
           email: email || "",
+          accessToken: stsTokenManager.accessToken,
           photoURL: photoURL || "",
-          accessToken: stsTokenManager.accessToken
+          namePersonal: "",
+          linkLinkedin: "",
+          historyPersonal: "",
+          experiences: [],
+          additionalEmail: "",
+          linkInstagram: "",
+          linkFacebook: "",
+          linkTwitter: "",
+          linkYouTube: ""
         }
         createLoginUser.addUser(user);
-        userLoged.addUserLoged(user);
-
-        return navigate('/portfolio');
+        
+        return navigate(`/portfolio/${uid}`);
       })
       .catch((error) => {
         console.log(error)
