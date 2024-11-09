@@ -2,11 +2,12 @@ import { FiArrowRight } from "react-icons/fi";
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { FaTriangleExclamation } from "react-icons/fa6";
 import { BiSolidUser } from "react-icons/bi";
+
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useGitHubSignUp } from "../../hooks/useGitHubSignUp";
 import { useCreateLoginUser } from "../../context/useCreateLoginUser";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types/UserTypes";
+import { HandleLoginGitHub } from "../../functions/HandleLoginGitHub";
 
 export default function Login() {
 
@@ -14,10 +15,18 @@ export default function Login() {
   const [user, setUser] = useState<User>();
   const [viewMessage, setViewMessage] = useState<boolean>(false);
   const [viewSearchBox, setViewSearchBox] = useState<boolean>(false);
-  const handleGitHubSignUp = useGitHubSignUp();
   const users = useCreateLoginUser().findUsers(userName);
   const userById = useCreateLoginUser();
   const navigate = useNavigate();
+
+  const onClickToLoginGitHub = async () => {
+    const user = await HandleLoginGitHub();
+
+    if(user){
+      userById.addUser(user);
+      navigate(`/portfolio/${user.id}`)
+    }
+  } 
   
   function onChangeName(e: ChangeEvent<HTMLInputElement>){
     setUserName(e.target.value)
@@ -30,8 +39,8 @@ export default function Login() {
     }
   }
 
-  function onClickSearchedUser(name: string, uid: string){
-    setUser(userById.getUserByUid(uid));
+  function onClickSearchedUser(name: string, id: number){
+    setUser(userById.getUserByUid(id));
     setUserName(name);
     setViewSearchBox(false);
   }
@@ -45,7 +54,7 @@ export default function Login() {
   function onSubmit (e: FormEvent<HTMLFormElement>){
     e.preventDefault();
 
-    navigate(`/portfolio/${user?.uid}`)
+    navigate(`/portfolio/${user?.id}`)
   }
   
   return (
@@ -58,6 +67,7 @@ export default function Login() {
             className='py-2 px-4 border border-primary_text rounded-2xl bg-secondary_text text-2xl font-medium leading-10 placeholder:text-tertiary_text placeholder:font-normal grow'
             placeholder='Digite o nome do usuário'
             type="text"
+            autoComplete="off"
             name="nameUser"
             id="nameUser"
             value={userName}
@@ -86,10 +96,10 @@ export default function Login() {
               {users.map((user) => (
                 <div
                   className="flex items-center gap-2.5 border-b py-1 border-[#C9CACC] text-base leading-10 font-medium cursor-pointer"
-                  onClick={() => onClickSearchedUser(user.displayName!, user.uid!)}
+                  onClick={() => onClickSearchedUser(user.name!, user.id!)}
                 >
                   <BiSolidUser className="w-6 h-6" />
-                  {user.displayName}
+                  {user.name}
                 </div>
               ))}
               
@@ -111,7 +121,7 @@ export default function Login() {
         <p className='font-bold text-2xl leading-10'>Acesse sua conta com</p>
         <button
           className='flex items-center gap-[10px] px-6 py-1 font-bold text-base leading-10 text-secondary_text bg-dark_green rounded-3xl'
-          onClick={handleGitHubSignUp}
+          onClick={onClickToLoginGitHub}
         >
           <TbBrandGithubFilled className='w-6 h-6' />
           <div>Github</div>

@@ -1,11 +1,13 @@
 export type User = {
-  uid: string | undefined
-  displayName: string | undefined,
-  providerId: string | undefined,
-  screenName: string | undefined,
+  id: number
+  token: string | undefined
+  name: string | undefined,
+  login: string | undefined,
   email?: string | undefined,
-  accessToken: string | undefined
-  photoURL: string | undefined
+  html_url: string | undefined
+  avatar_url: string | undefined
+  bio: string | undefined
+  location: string | null
   namePersonal?: string | undefined,
   linkLinkedin?: string | undefined,
   historyPersonal?: string | undefined,
@@ -27,8 +29,8 @@ export type User = {
 export interface UserState {
   users: User[],
   addUser: (i: User) => void,
-  getUserByUid: (uid: string) => User | undefined,
-  logoffUserByUid: (uid: string) => void,
+  getUserByUid: (id: number) => User | undefined,
+  logoffUserByUid: (id: number) => void,
   findUsers: (displayName: string) => User[] | undefined,
   logoffAllUsers: () => void
 }
@@ -37,21 +39,4 @@ export interface UserLogedState {
   userLoged: User
   addUserLoged: (i: User) => void
   removeUserLoged: () => void
-}
-
-export type UserResponse = {
-  displayName: string,
-  email: string | undefined,
-  photoURL: string,
-  uid: string,
-  stsTokenManager: {
-    accessToken: string,
-    expirationTime: number
-  },
-  reloadUserInfo: {
-    providerUserInfo: {
-      providerId: string,
-      screenName: string,
-    }[]
-  }
 }

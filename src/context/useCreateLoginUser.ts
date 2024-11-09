@@ -7,37 +7,37 @@ export const useCreateLoginUser = create<UserState>()(
       (set, get) => ({
         users: [],
         addUser: (user) => set((state) => {
-          const usr = state.users.find(us => us.uid === user.uid);
+          const usr = state.users.find(us => us.id === user.id);
           if(usr){
-              usr.accessToken = user.accessToken;
+              usr.token = user.token;
               return { users: state.users };
           }else{
               return({ users: [...state.users, user] })
           } 
         }),
-        getUserByUid: (uid) => {
+        getUserByUid: (id) => {
           const state = get();
           const findUser = state.users.find(us => {
-            return us.uid === uid
+            return us.id === id
           })
           if(findUser){
             return findUser
           }
           return undefined
         },
-        logoffUserByUid: (uid) => set((state) => {
+        logoffUserByUid: (id) => set((state) => {
             const findUser = state.users.find(us => {
-              return us.uid === uid
+              return us.id === id
             })
             if(findUser){
-              findUser.accessToken = undefined;
+              findUser.token = undefined;
               return ({users: state.users})
             }
             return ({users: state.users})
         }),
         logoffAllUsers: () => set((state) => {
           state.users.map((user) => {
-            return user.accessToken = undefined;
+            return user.token = undefined;
           })
           return ({users: state.users})
         }),
@@ -47,7 +47,7 @@ export const useCreateLoginUser = create<UserState>()(
           }
           const state = get();
           const findUsers = state.users.filter(us => {
-              return us.displayName?.toLowerCase().includes(displayName.toLowerCase()) 
+              return us.name?.toLowerCase().includes(displayName.toLowerCase()) 
           })
           if(findUsers){
               return findUsers

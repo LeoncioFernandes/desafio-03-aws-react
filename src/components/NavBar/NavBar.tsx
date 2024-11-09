@@ -10,7 +10,7 @@ export default function NavBar() {
 
   const [viewLogoff, setViewLogoof] = useState<boolean>(true)
 
-  const {uid} = useParams<{uid: string}>();
+  const {id} = useParams<{id: string}>();
   const navigate = useNavigate();
   const user = useCreateLoginUser();
 
@@ -18,7 +18,7 @@ export default function NavBar() {
   function setLogoff(logoof: boolean){
     if(logoof){
       setViewLogoof(false)
-      user.logoffUserByUid(uid || "")
+      user.logoffUserByUid(Number(id))
       navigate("/")
     }
     else{
@@ -27,12 +27,12 @@ export default function NavBar() {
   }
 
   useEffect(() => {
-    if(!user.getUserByUid(uid || "")?.accessToken){
+    if(!user.getUserByUid(Number(id))?.token){
       setViewLogoof(false);
     }else{
       setViewLogoof(true);
     }
-  }, [user.getUserByUid(uid || "")?.accessToken])
+  }, [user.getUserByUid(Number(id))?.token])
 
   return (
     <nav className='fixed flex flex-col gap-8 top-0 left-0 right-0 z-10'>
@@ -45,13 +45,13 @@ export default function NavBar() {
         </ul>
         <div className='absolute right-8 top-4'>
           {viewLogoff ? (
-            <ButtonLogoff onLogoffButton={setLogoff} urlImage={user.getUserByUid(uid || "")?.photoURL || ""} />
+            <ButtonLogoff onLogoffButton={setLogoff} urlImage={user.getUserByUid(Number(id))?.avatar_url || ""} />
             ) : (
             <ButtonLogin />
           )}
         </div>
       </div>
-      {user.getUserByUid(uid || "")?.accessToken && (
+      {user.getUserByUid(Number(id))?.token && (
         <div className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
           <FaPen className='text-secondary_text w-full h-full' />
           {/* <FaCheck className='text-secondary_text w-full h-full' /> */}
