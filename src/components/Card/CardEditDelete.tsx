@@ -1,21 +1,12 @@
 import { TbTrashFilled } from "react-icons/tb";
 import { PiPencilSimpleLineFill } from "react-icons/pi";
-
-type CardEditDeleteProps = {
-  idCard: number,
-  title: string,
-  period: string,
-  skills: string,
-  experiences: string,
-  linkRepository: string
-  onEditing: (onEdit: boolean, idCard: number, title: string, period: string, skills: string, experiences: string, linkRepository: string) => void;
-  onDeleting: (idCard: number) => void
-}
+import { CardData, CardEditDeleteProps } from "../../types/CardTypes";
 
 export default function CardEditDelete({idCard, title, period, skills, experiences, linkRepository, onEditing, onDeleting}: CardEditDeleteProps) {
 
   function onClick(){
-    onEditing(true, idCard, title, period, skills, experiences, linkRepository)
+    const cardData: CardData = {idCard, title, period, skills, experiences, linkRepository}
+    onEditing(true, cardData)
   }
 
   function onDelete(){

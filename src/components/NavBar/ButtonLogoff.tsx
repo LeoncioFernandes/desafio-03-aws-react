@@ -11,7 +11,7 @@ export default function ButtonLogoff({onLogoffButton, urlImage}: LogoffButton) {
   }
 
   return (
-    <button className='flex items-center gap-4' onClick={() => Logoff()}>
+    <button className='flex items-center gap-4 transition hover:text-primary_color' onClick={() => Logoff()}>
       <div>Sair</div>
       <div className='w-[77px] h-[77px] bg-primary_color rounded-full overflow-hidden'>
         <img className="" src={urlImage} alt="UserImage" />

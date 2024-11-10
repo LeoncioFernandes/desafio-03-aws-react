@@ -10,23 +10,7 @@ import { useCreateLoginUser } from '../../context/useCreateLoginUser';
 import FormAddEditLink from '../../components/FormAddEditLink/FormAddEditLink';
 import { SocialNetwork } from '../../types/EnumSocialNetwork';
 import FormAddEditCard from '../../components/FormAddEditCard/FormAddEditCard';
-
-type FormCardProps = {
-  title: string,
-  period: string,
-  skills: string,
-  experiences: string,
-  linkRepository?: string | undefined,
-}
-
-type CardData = {
-  idCard: number,
-  title: string,
-  period: string,
-  skills: string,
-  experiences: string,
-  linkRepository: string
-}
+import { CardData, FormCardProps } from '../../types/CardTypes';
 
 export default function Portfolio() {
 
@@ -110,9 +94,7 @@ export default function Portfolio() {
     setViewFormCardEdit(onAdd)
   }
 
-  function onEditCard(onEdit: boolean, idCard: number, title: string, period: string, skills: string, experiences: string, linkRepository: string){
-
-    const cardData: CardData = {idCard: idCard, title: title, period: period, skills: skills, experiences: experiences, linkRepository: linkRepository}
+  function onEditCard(onEdit: boolean, cardData: CardData){
 
     setCardData(cardData)
 
@@ -120,7 +102,7 @@ export default function Portfolio() {
     setViewFormCardEdit(onEdit)
   }
 
-  function onAddNewCard(formCardProps: FormCardProps, idCard: number | undefined){
+  function onAddNewCardOrEditCard(formCardProps: FormCardProps, idCard: number | undefined){
 
     const {title, period, skills, experiences, linkRepository} = formCardProps
 
@@ -138,8 +120,6 @@ export default function Portfolio() {
   function onDeleteCard(idCard: number){
 
     userEdit.deleteCard(Number(id), idCard)
-
-    console.log(idCard)
 
     setCardData(undefined)
     setViewFloatForm(false)
@@ -208,7 +188,7 @@ export default function Portfolio() {
             </p>
             <div className='flex gap-7'>
               <a
-                className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-dark_green max-w-[194px] w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)]'
+                className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none max-w-[194px] w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
                 href={user?.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -218,7 +198,7 @@ export default function Portfolio() {
               {(user?.linkLinkedin || isEdit) && (
                 <div className='relative flex w-full'>
                   <a
-                    className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-dark_green w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)]'
+                    className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
                     href={user?.linkLinkedin}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -231,6 +211,7 @@ export default function Portfolio() {
                       editing={isEdit}
                       linkSocialMedia={user?.linkLinkedin}
                       socialMedia={SocialNetwork.LINKEDIN}
+                      imageSocialMedia=''
                     />
                   </div>
                 </div>
@@ -318,6 +299,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkInstagram}
                 socialMedia={SocialNetwork.INSTAGRAM}
+                imageSocialMedia='/images/instagram.png'
               />
             )}
             {(user?.linkFacebook || isEdit) && (
@@ -326,6 +308,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkFacebook}
                 socialMedia={SocialNetwork.FACEBOOK}
+                imageSocialMedia='/images/facebook.png'
               />
             )}
             {(user?.linkTwitter || isEdit) && (
@@ -334,6 +317,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkTwitter}
                 socialMedia={SocialNetwork.TWITTER}
+                imageSocialMedia='/images/twitter.png'
               />
             )}
             {(user?.linkYouTube || isEdit) && (
@@ -342,6 +326,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkYouTube}
                 socialMedia={SocialNetwork.YOUTUBE}
+                imageSocialMedia='/images/youtube.png'
               />
             )}
           </div>
@@ -372,7 +357,7 @@ export default function Portfolio() {
           {viewFormCardEdit && (
             <FormAddEditCard
               onEditing={closeFloatCard}
-              onAddCard={onAddNewCard}
+              onAddCard={onAddNewCardOrEditCard}
               cardData={cardData}
             />
           )}
