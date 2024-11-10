@@ -22,13 +22,13 @@ export default function FormAddEditLink({onEditing, linkUrl, socialNetwork, setS
             <div className='flex gap-6'>
                 <button
                     onClick={() => onEditing(false)}
-                    className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3'
+                    className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3 transition hover:bg-red_custom hover:text-secondary_text'
                 >
                     Cancelar
                 </button>
                 <button
                     onClick={() => setSocialNetwork(linkSocialNetwork, socialNetwork)}
-                    className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3'
+                    className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3 transition hover:bg-primary_color'
                 >
                     Salvar
                 </button>

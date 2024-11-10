@@ -20,7 +20,7 @@ export default function ButtonLogin() {
   
   return (
     <button
-      className='flex items-center gap-[10px] px-5 py-5'
+      className='flex items-center gap-[10px] px-5 py-5 transition hover:text-primary_color'
       onClick={onClickToLoginGitHub}
     >
       <IoLogInOutline className='w-9 h-9' />

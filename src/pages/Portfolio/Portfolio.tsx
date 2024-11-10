@@ -188,7 +188,7 @@ export default function Portfolio() {
             </p>
             <div className='flex gap-7'>
               <a
-                className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-dark_green max-w-[194px] w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)]'
+                className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none max-w-[194px] w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
                 href={user?.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -198,7 +198,7 @@ export default function Portfolio() {
               {(user?.linkLinkedin || isEdit) && (
                 <div className='relative flex w-full'>
                   <a
-                    className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-dark_green w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)]'
+                    className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
                     href={user?.linkLinkedin}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -211,6 +211,7 @@ export default function Portfolio() {
                       editing={isEdit}
                       linkSocialMedia={user?.linkLinkedin}
                       socialMedia={SocialNetwork.LINKEDIN}
+                      imageSocialMedia=''
                     />
                   </div>
                 </div>
@@ -298,6 +299,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkInstagram}
                 socialMedia={SocialNetwork.INSTAGRAM}
+                imageSocialMedia='/images/instagram.png'
               />
             )}
             {(user?.linkFacebook || isEdit) && (
@@ -306,6 +308,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkFacebook}
                 socialMedia={SocialNetwork.FACEBOOK}
+                imageSocialMedia='/images/facebook.png'
               />
             )}
             {(user?.linkTwitter || isEdit) && (
@@ -314,6 +317,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkTwitter}
                 socialMedia={SocialNetwork.TWITTER}
+                imageSocialMedia='/images/twitter.png'
               />
             )}
             {(user?.linkYouTube || isEdit) && (
@@ -322,6 +326,7 @@ export default function Portfolio() {
                 editing={isEdit}
                 linkSocialMedia={user?.linkYouTube}
                 socialMedia={SocialNetwork.YOUTUBE}
+                imageSocialMedia='/images/youtube.png'
               />
             )}
           </div>
