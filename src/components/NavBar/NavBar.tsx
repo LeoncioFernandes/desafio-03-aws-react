@@ -37,7 +37,12 @@ export default function NavBar({onEditing}: EditingProps) {
     const sectionElement = document.getElementById(section)
 
     if(sectionElement){
-      sectionElement.scrollIntoView({behavior: 'smooth'})
+      const offsetTop = sectionElement.getBoundingClientRect().top + window.scrollY - 140;
+        
+      window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+      });
     }
   }
 
@@ -63,10 +68,38 @@ export default function NavBar({onEditing}: EditingProps) {
     <nav className='fixed flex flex-col gap-8 top-0 left-0 right-0 z-10'>
       <div className='relative flex bg-dark_green py-9 font-medium text-3xl text-secondary_text justify-center rounded-b-[35.6px]'>
         <ul className='flex gap-16'>
-          <li><button onClick={(e) => scrolling(e, 'home')}>Início</button></li>
-          <li><button onClick={(e) => scrolling(e, 'my-history')}>Minha História</button></li>
-          <li><button onClick={(e) => scrolling(e, 'experiences')}>Experiências</button></li>
-          <li><button onClick={(e) => scrolling(e, 'contact')}>Contato</button></li>
+          <li>
+            <button
+              onClick={(e) => scrolling(e, 'home')}
+              className='transition hover:text-primary_color'
+            >
+              Início
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={(e) => scrolling(e, 'my-history')}
+              className='transition hover:text-primary_color'
+            >
+              Minha História
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={(e) => scrolling(e, 'experiences')}
+              className='transition hover:text-primary_color'
+            >
+              Experiências
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={(e) => scrolling(e, 'contact')}
+              className='transition hover:text-primary_color'
+            >
+              Contato
+            </button>
+          </li>
         </ul>
         <div className='absolute right-8 top-4'>
           {viewLogoff ? (
@@ -77,7 +110,7 @@ export default function NavBar({onEditing}: EditingProps) {
         </div>
       </div>
       {user.getUserByUid(Number(id))?.token && (
-        <button onClick={isEditing} className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
+        <button onClick={isEditing} className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7 transition hover:bg-primary_color'>
           {isEdit ? (
             <FaCheck className='text-secondary_text w-full h-full' />
           ) : (

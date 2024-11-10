@@ -79,7 +79,7 @@ export default function Login() {
           />
           <button
             type="submit"
-            className='px-5 py-2 border border-primary_text rounded-2xl disabled:bg-tertiary_text bg-secondary_color text-secondary_text'
+            className='px-5 py-2 border border-primary_text rounded-2xl disabled:bg-tertiary_text bg-secondary_color text-secondary_text transition hover:bg-primary_color'
             disabled={userName ? false : true}
           >
             <FiArrowRight className='h-9 w-9' />
@@ -124,7 +124,7 @@ export default function Login() {
       <div className='flex items-center gap-4'>
         <p className='font-bold text-2xl leading-10'>Acesse sua conta com</p>
         <button
-          className='flex items-center gap-[10px] px-6 py-1 font-bold text-base leading-10 text-secondary_text bg-dark_green rounded-3xl'
+          className='flex items-center gap-[10px] px-6 py-1 font-bold text-base leading-10 text-secondary_text bg-dark_green rounded-3xl transition hover:bg-primary_color'
           onClick={onClickToLoginGitHub}
         >
           <TbBrandGithubFilled className='w-6 h-6' />

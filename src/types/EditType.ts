@@ -5,6 +5,7 @@ export type EditingProps = {
     editing: boolean
     linkSocialMedia?: string
     socialMedia: SocialNetwork
+    imageSocialMedia: string
 };
 
 export type FormAddEditProps = {

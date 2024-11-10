@@ -104,11 +104,15 @@ export default function FormAddEditCard({onAddCard, onEditing, cardData}: AddCar
                     <button
                         type="submit"
                         onClick={() => onEditing(false)}
-                        className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3'
+                        className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3 transition hover:bg-red_custom hover:text-secondary_text'
                     >
                         Cancelar
                     </button>
-                    <button className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3'>Salvar</button>
+                    <button
+                        className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3 transition hover:bg-primary_color'
+                    >
+                        Salvar
+                    </button>
                 </div>
             
             </form>
