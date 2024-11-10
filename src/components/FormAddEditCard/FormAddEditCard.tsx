@@ -1,6 +1,7 @@
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AddCardProps } from "../../types/CardTypes";
 
 const schema = z
   .object({
@@ -12,21 +13,6 @@ const schema = z
   })
 
 type FormCardProps = z.infer<typeof schema>;
-
-type CardData = {
-    idCard: number,
-    title: string,
-    period: string,
-    skills: string,
-    experiences: string,
-    linkRepository: string
-}
-
-type AddCardProps = {
-    onEditing: (onEdit: boolean) => void;
-    onAddCard: (formCardProps: FormCardProps, idCard: number | undefined) => void;
-    cardData: CardData | undefined
-};
 
 export default function FormAddEditCard({onAddCard, onEditing, cardData}: AddCardProps){
 
@@ -46,7 +32,6 @@ export default function FormAddEditCard({onAddCard, onEditing, cardData}: AddCar
     });
 
     const onSubmit = (data: FormCardProps) => {
-        
         onAddCard(data, cardData?.idCard)
     }
 
