@@ -28,6 +28,11 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({
+      preferredStrategy: 'pseudoelements',
+      nocompatible: true,
+    }),
+  ],
 }
 
