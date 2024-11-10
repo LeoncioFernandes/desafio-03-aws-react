@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 import ButtonLogoff from './ButtonLogoff'
 import ButtonLogin from './ButtonLogin';
-import { FaPen } from 'react-icons/fa6';
+import { FaCheck, FaPen } from 'react-icons/fa6';
 import { useCreateLoginUser } from '../../context/useCreateLoginUser';
 import { useNavigate, useParams } from 'react-router-dom';
 
+type EditingProps = {
+  onEditing: (onEdit: boolean) => void;
+};
 
-export default function NavBar() {
+
+export default function NavBar({onEditing}: EditingProps) {
 
   const [viewLogoff, setViewLogoof] = useState<boolean>(true)
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const {id} = useParams<{id: string}>();
   const navigate = useNavigate();
@@ -26,6 +31,26 @@ export default function NavBar() {
     }
   }
 
+  function scrolling(e: MouseEvent<HTMLButtonElement>, section: string){
+    e.preventDefault();
+    
+    const sectionElement = document.getElementById(section)
+
+    if(sectionElement){
+      sectionElement.scrollIntoView({behavior: 'smooth'})
+    }
+  }
+
+  function isEditing() {
+    if(isEdit){
+      setIsEdit(false)
+      onEditing(false)
+    }else{
+      setIsEdit(true)
+      onEditing(true)
+    }
+  }
+
   useEffect(() => {
     if(!user.getUserByUid(Number(id))?.token){
       setViewLogoof(false);
@@ -38,10 +63,10 @@ export default function NavBar() {
     <nav className='fixed flex flex-col gap-8 top-0 left-0 right-0 z-10'>
       <div className='relative flex bg-dark_green py-9 font-medium text-3xl text-secondary_text justify-center rounded-b-[35.6px]'>
         <ul className='flex gap-16'>
-          <li>Início</li>
-          <li>Minha História</li>
-          <li>Experiências</li>
-          <li>Contato</li>
+          <li><button onClick={(e) => scrolling(e, 'home')}>Início</button></li>
+          <li><button onClick={(e) => scrolling(e, 'my-history')}>Minha História</button></li>
+          <li><button onClick={(e) => scrolling(e, 'experiences')}>Experiências</button></li>
+          <li><button onClick={(e) => scrolling(e, 'contact')}>Contato</button></li>
         </ul>
         <div className='absolute right-8 top-4'>
           {viewLogoff ? (
@@ -52,10 +77,13 @@ export default function NavBar() {
         </div>
       </div>
       {user.getUserByUid(Number(id))?.token && (
-        <div className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
-          <FaPen className='text-secondary_text w-full h-full' />
-          {/* <FaCheck className='text-secondary_text w-full h-full' /> */}
-        </div>
+        <button onClick={isEditing} className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7'>
+          {isEdit ? (
+            <FaCheck className='text-secondary_text w-full h-full' />
+          ) : (
+            <FaPen className='text-secondary_text w-full h-full' />
+          )}
+        </button>
       )}
     </nav>
   )

@@ -32,7 +32,18 @@ export interface UserState {
   getUserByUid: (id: number) => User | undefined,
   logoffUserByUid: (id: number) => void,
   findUsers: (displayName: string) => User[] | undefined,
-  logoffAllUsers: () => void
+  logoffAllUsers: () => void,
+  changeNamePersonal: (id: number, namePersonal: string) => void
+  changeAdditionalEmail: (id: number, additionalEmail: string) => void
+  changeHistoryPersonal: (id: number, historyPersonal: string) => void
+  changeLinkLinkedin: (id: number, linkLinkedin: string) => void
+  changeLinkInstagram: (id: number, linkInstagram: string) => void
+  changeLinkFacebook: (id: number, linkFacebook: string) => void
+  changeLinkTwitter: (id: number, linkTwitter: string) => void
+  changeLinkYouTube: (id: number, linkYouTube: string) => void
+  addCard: (id: number, title: string, period: string, skills: string, experiences: string, linkRepository: string) => void
+  editCard: (idUser: number, idCard: number, title: string, period: string, skills: string, experiences: string, linkRepository: string) => void
+  deleteCard: (idUser: number, idCard: number) => void
 }
 
 export interface UserLogedState {
