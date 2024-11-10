@@ -51,6 +51,10 @@ export default function Login() {
     }
   }, [userName])
 
+  useEffect(() => {
+    userById.logoffAllUsers()
+  }, [])
+
   function onSubmit (e: FormEvent<HTMLFormElement>){
     e.preventDefault();
 

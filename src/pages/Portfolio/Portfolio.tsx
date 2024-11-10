@@ -10,23 +10,7 @@ import { useCreateLoginUser } from '../../context/useCreateLoginUser';
 import FormAddEditLink from '../../components/FormAddEditLink/FormAddEditLink';
 import { SocialNetwork } from '../../types/EnumSocialNetwork';
 import FormAddEditCard from '../../components/FormAddEditCard/FormAddEditCard';
-
-type FormCardProps = {
-  title: string,
-  period: string,
-  skills: string,
-  experiences: string,
-  linkRepository?: string | undefined,
-}
-
-type CardData = {
-  idCard: number,
-  title: string,
-  period: string,
-  skills: string,
-  experiences: string,
-  linkRepository: string
-}
+import { CardData, FormCardProps } from '../../types/CardTypes';
 
 export default function Portfolio() {
 
@@ -110,9 +94,7 @@ export default function Portfolio() {
     setViewFormCardEdit(onAdd)
   }
 
-  function onEditCard(onEdit: boolean, idCard: number, title: string, period: string, skills: string, experiences: string, linkRepository: string){
-
-    const cardData: CardData = {idCard: idCard, title: title, period: period, skills: skills, experiences: experiences, linkRepository: linkRepository}
+  function onEditCard(onEdit: boolean, cardData: CardData){
 
     setCardData(cardData)
 
@@ -120,7 +102,7 @@ export default function Portfolio() {
     setViewFormCardEdit(onEdit)
   }
 
-  function onAddNewCard(formCardProps: FormCardProps, idCard: number | undefined){
+  function onAddNewCardOrEditCard(formCardProps: FormCardProps, idCard: number | undefined){
 
     const {title, period, skills, experiences, linkRepository} = formCardProps
 
@@ -138,8 +120,6 @@ export default function Portfolio() {
   function onDeleteCard(idCard: number){
 
     userEdit.deleteCard(Number(id), idCard)
-
-    console.log(idCard)
 
     setCardData(undefined)
     setViewFloatForm(false)
@@ -372,7 +352,7 @@ export default function Portfolio() {
           {viewFormCardEdit && (
             <FormAddEditCard
               onEditing={closeFloatCard}
-              onAddCard={onAddNewCard}
+              onAddCard={onAddNewCardOrEditCard}
               cardData={cardData}
             />
           )}

@@ -1,18 +1,6 @@
 import { useState } from "react"
 import CardEditDelete from "./CardEditDelete"
-
-
-type CardProps = {
-  idCard: number,
-  title: string,
-  period: string,
-  skills: string,
-  experience: string,
-  linkRepository?: string,
-  onEditing: boolean
-  editing: (onEdit: boolean, idCard: number, title: string, period: string, skills: string, experiences: string, linkRepository: string) => void
-  deleting: (idCard: number) => void
-}
+import { CardProps } from "../../types/CardTypes"
 
 export default function Card({idCard, title, period, skills, experience, linkRepository, onEditing, editing, deleting}:
   CardProps) {

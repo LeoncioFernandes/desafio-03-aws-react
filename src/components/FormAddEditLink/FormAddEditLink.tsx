@@ -20,8 +20,18 @@ export default function FormAddEditLink({onEditing, linkUrl, socialNetwork, setS
                 placeholder='Digite a URL'
             />
             <div className='flex gap-6'>
-                <button onClick={() => onEditing(false)} className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3'>Cancelar</button>
-                <button onClick={() => setSocialNetwork(linkSocialNetwork, socialNetwork)} className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3'>Salvar</button>
+                <button
+                    onClick={() => onEditing(false)}
+                    className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3'
+                >
+                    Cancelar
+                </button>
+                <button
+                    onClick={() => setSocialNetwork(linkSocialNetwork, socialNetwork)}
+                    className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3'
+                >
+                    Salvar
+                </button>
             </div>
         </div>
     )
