@@ -247,7 +247,7 @@ export default function Portfolio() {
           )}
         </section>
 
-        <section id='experiences' className='flex flex-col items-center gap-16 w-full bg-secondary_color text-secondary_text pt-16'>
+        <section id='experiences' className={`flex flex-col items-center gap-16 w-full bg-secondary_color text-secondary_text pt-16 ${!user?.additionalEmail && "pb-16"}`}>
           <p className='text-[64px] font-bold leading-none'>Experiências</p>
           {(user?.experiences && user?.experiences?.length > 0 || isEdit) ? (
             <div className='flex flex-row flex-wrap gap-11 max-w-[865px] w-full'>
@@ -270,7 +270,7 @@ export default function Portfolio() {
               )}
             </div>
           ) : (
-            <p className='text-[40px] font-normal leading-none text-tertiary_text pb-16'>Não há nada por aqui!</p>
+            <p className='text-[40px] font-normal leading-none text-tertiary_text'>Não há nada por aqui!</p>
           )}
           {(user?.additionalEmail || isEdit) && (
             <div className='flex flex-col items-center gap-16 bg-dark_green px-16 py-32 w-full'>
