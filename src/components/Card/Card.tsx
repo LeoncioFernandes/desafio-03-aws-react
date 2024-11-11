@@ -30,8 +30,11 @@ export default function Card({idCard, title, period, skills, experience, linkRep
             <h1 className='text-[32px] font-bold leading-10'>{title}</h1>
             <p className='text-[20px] text-tertiary_text leading-7'>{period}</p>
             <div className='flex gap-[10px] flex-wrap'>
-              {skills!.split(',').map((skill) => (
-                <div className='bg-dark_green p-2 rounded text-xs'>
+              {skills!.split(',').map((skill, index) => (
+                <div
+                  key={index}
+                  className='bg-dark_green p-2 rounded text-xs'
+                >
                   {skill}
                 </div>
               ))}

@@ -9,7 +9,6 @@ type EditingProps = {
   onEditing: (onEdit: boolean) => void;
 };
 
-
 export default function NavBar({onEditing}: EditingProps) {
 
   const [viewLogoff, setViewLogoof] = useState<boolean>(true)
