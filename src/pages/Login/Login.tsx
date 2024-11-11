@@ -15,7 +15,7 @@ export default function Login() {
   const [user, setUser] = useState<User>();
   const [viewMessage, setViewMessage] = useState<boolean>(false);
   const [viewSearchBox, setViewSearchBox] = useState<boolean>(false);
-  const users = useCreateLoginUser().findUsers(userName);
+  const [users, setUsers] = useState<User[] | undefined>(undefined)
   const userById = useCreateLoginUser();
   const navigate = useNavigate();
 
@@ -31,8 +31,9 @@ export default function Login() {
   function onChangeName(e: ChangeEvent<HTMLInputElement>){
     setUserName(e.target.value)
     setViewSearchBox(true);
+    const usersFinder = userById.findUsers(e.target.value)
 
-    if(users?.length === 0){
+    if(usersFinder?.length === 0){
       setViewMessage(true);
     }else{
       setViewMessage(false);
@@ -43,12 +44,15 @@ export default function Login() {
     setUser(userById.getUserByUid(id));
     setUserName(name);
     setViewSearchBox(false);
+    setViewMessage(false);
   }
 
   useEffect(() => {
     if(!userName){
       setViewMessage(false);
     }
+    setUsers(userById.findUsers(userName))
+    
   }, [userName])
 
   useEffect(() => {
@@ -80,7 +84,7 @@ export default function Login() {
           <button
             type="submit"
             className='px-5 py-2 border border-primary_text rounded-2xl disabled:bg-tertiary_text bg-secondary_color text-secondary_text transition hover:bg-primary_color'
-            disabled={userName ? false : true}
+            disabled={userName && !viewMessage ? false : true}
           >
             <FiArrowRight className='h-9 w-9' />
           </button>
@@ -99,6 +103,7 @@ export default function Login() {
             <div className="flex flex-col max-h-[198px] w-full border border-[#D6D6D6] bg-secondary_text p-3 rounded-md overflow-y-auto">
               {users.map((user) => (
                 <div
+                  key={user.id}
                   className="flex items-center gap-2.5 border-b py-1 border-[#C9CACC] text-base leading-10 font-medium cursor-pointer"
                   onClick={() => onClickSearchedUser(user.name!, user.id!)}
                 >

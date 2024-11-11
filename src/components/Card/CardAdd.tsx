@@ -1,4 +1,3 @@
-import React from 'react'
 import { RxPlusCircled } from 'react-icons/rx'
 
 type AddCard = {

@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { UserState } from '../types/UserTypes';
-import { title } from 'process';
 
 export const useCreateLoginUser = create<UserState>()(
   persist(
