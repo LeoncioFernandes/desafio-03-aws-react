@@ -2,6 +2,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddCardProps } from "../../types/CardTypes";
+import { KeyboardEvent } from 'react'
 
 const schema = z
   .object({
@@ -35,10 +36,17 @@ export default function FormAddEditCard({onAddCard, onEditing, cardData}: AddCar
         onAddCard(data, cardData?.idCard)
     }
 
+    function onKeyDown(e: KeyboardEvent<HTMLFormElement>){
+      if(e.key === "Enter"){
+        e.preventDefault()
+      }
+    }
+
     return(
         <div className='flex flex-col bg-bg_primary p-16 gap-8 rounded-[26px] z-10'>
             <p className='text-dark_green text-[48px] font-bold'>{cardData ? "Edição de card" : "Criação de card"}</p>
             <form
+                onKeyDown={onKeyDown}
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-8"
             >
@@ -102,13 +110,13 @@ export default function FormAddEditCard({onAddCard, onEditing, cardData}: AddCar
 
                 <div className='flex gap-6'>
                     <button
-                        type="submit"
                         onClick={() => onEditing(false)}
                         className='w-[357.5px] text-dark_green text-[32px] font-medium border-2 border-dark_green rounded-md p-3 transition hover:bg-red_custom hover:text-secondary_text'
                     >
                         Cancelar
                     </button>
                     <button
+                        type="submit"
                         className='w-[357.5px] text-secondary_text text-[32px] font-medium bg-dark_green rounded-md p-3 transition hover:bg-primary_color'
                     >
                         Salvar

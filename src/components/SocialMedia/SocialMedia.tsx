@@ -1,4 +1,3 @@
-import React from 'react'
 import ButtonEdit from '../ButtonEdit/ButtonEdit'
 import { EditingProps } from '../../types/EditType'
 
