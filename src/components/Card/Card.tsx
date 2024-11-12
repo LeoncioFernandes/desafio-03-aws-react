@@ -12,20 +12,24 @@ export default function Card({idCard, title, period, skills, experience, linkRep
       onMouseEnter={() => setShowEditDelete(true)}
       onMouseLeave={() => setShowEditDelete(false)}
       className='max-w-[409px] w-full h-[503px]'
+      data-testid="card"
     >
       {(showEditDelete && onEditing) ? (
-        <CardEditDelete
-          idCard={idCard}
-          title={title}
-          period={period}
-          skills={skills}
-          experiences={experience}
-          linkRepository={linkRepository!}
-          onEditing={editing}
-          onDeleting={deleting}
-        />
+        <div className="w-full h-full" data-testid="card-edit-delete">
+          <CardEditDelete
+            idCard={idCard}
+            title={title}
+            period={period}
+            skills={skills}
+            experiences={experience}
+            linkRepository={linkRepository!}
+            onEditing={editing}
+            onDeleting={deleting}
+          />
+        </div>
+        
       ) : (
-        <div className='flex flex-col gap-4 justify-between w-full h-full px-7 py-8 text-secondary_text border-[3px] border-dark_green bg-card_color drop-shadow-[6px_8px_0px_rgba(9,188,138,1)] rounded-[20px]'>
+        <div data-testid="card-info" className='flex flex-col gap-4 justify-between w-full h-full px-7 py-8 text-secondary_text border-[3px] border-dark_green bg-card_color drop-shadow-[6px_8px_0px_rgba(9,188,138,1)] rounded-[20px]'>
           <div className='flex flex-col gap-4 overflow-y-auto scrollbar scrollbar-w-1 scrollbar-thumb-secondary_text scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
             <h1 className='text-[32px] font-bold leading-10'>{title}</h1>
             <p className='text-[20px] text-tertiary_text leading-7'>{period}</p>
