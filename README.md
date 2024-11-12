@@ -24,7 +24,6 @@ npm start
 - React
 - TypeScript
 - Tailwind CSS (Estilização)
-- Axios (Consumo de API)
 - React Router DOM (Roteamento de Páginas)
 - React Icons (Ícones Componentizados)
 - Toastify (Gerenciamento de Notificações)
