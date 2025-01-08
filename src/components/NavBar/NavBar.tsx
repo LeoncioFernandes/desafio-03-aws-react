@@ -109,7 +109,7 @@ export default function NavBar({onEditing}: EditingProps) {
         </div>
       </div>
       {user.getUserByUid(Number(id))?.token && (
-        <button onClick={isEditing} className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7 transition hover:bg-primary_color'>
+        <button onClick={isEditing} className='self-end mr-16 w-[105px] h-[105px] bg-card_color rounded-full p-7 transition hover:bg-primary_color drop-shadow-[4px_3px_0px_rgba(23,42,58,1)]'>
           {isEdit ? (
             <FaCheck className='text-secondary_text w-full h-full' />
           ) : (

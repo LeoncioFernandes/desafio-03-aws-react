@@ -11,6 +11,8 @@ import FormAddEditLink from '../../components/FormAddEditLink/FormAddEditLink';
 import { SocialNetwork } from '../../types/EnumSocialNetwork';
 import FormAddEditCard from '../../components/FormAddEditCard/FormAddEditCard';
 import { CardData, FormCardProps } from '../../types/CardTypes';
+import { toast } from "react-toastify";
+import { FaCheck, FaPen } from 'react-icons/fa6';
 
 export default function Portfolio() {
 
@@ -136,6 +138,37 @@ export default function Portfolio() {
 
   useEffect(() => {
     handleInputHistoryPersonal();
+
+    if(isEdit){
+      toast.success("Modo de Edição", {
+        position: "bottom-center",
+        autoClose: false,
+        closeButton: false,
+        closeOnClick: false,
+        draggable: false,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        progress: undefined,
+        style: {
+          background: '#172A3A', 
+          color: '#FFFFFF',
+          boxShadow: "5px 5px 0px rgba(9, 188, 138, 1)",
+          justifyContent: "center",
+          gap: "10px",
+          fontSize: "20px",
+          fontWeight: "700",
+          fontFamily: "Roboto"
+        },
+        icon: (
+          <div className='bg-primary_color p-1.5 rounded-full'>
+            <FaPen className='text-white' size={18}/>
+          </div>
+        )
+      });
+    }else{
+      toast.dismiss();
+    }
+
   },[isEdit])
   
   useEffect(() => {
@@ -197,14 +230,23 @@ export default function Portfolio() {
               </a>
               {(user?.linkLinkedin || isEdit) && (
                 <div className='relative flex w-full'>
-                  <a
-                    className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
-                    href={user?.linkLinkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Linkedin
-                  </a>
+                  {user?.linkLinkedin ? (
+                    <a
+                      className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
+                      href={user.linkLinkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Linkedin
+                    </a>
+                  ) : (
+                    <p
+                      className='text-[32px] text-bg_primary font-bold leading-[37.5px] bg-dark_green border border-none w-full text-center py-3 rounded-2xl drop-shadow-[8px_8px_0px_rgba(9,188,138,1)] transition hover:bg-primary_color'
+                    >
+                      Linkedin
+                    </p>
+                  )}
+                  
                   <div className='absolute -right-1 -top-1'>
                     <ButtonEdit
                       onEditing={onEditing}
