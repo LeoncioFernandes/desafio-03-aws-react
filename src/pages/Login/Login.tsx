@@ -104,7 +104,7 @@ export default function Login() {
               {users.map((user) => (
                 <div
                   key={user.id}
-                  className="flex items-center gap-2.5 border-b py-1 border-[#C9CACC] text-base leading-10 font-medium cursor-pointer"
+                  className="flex items-center gap-2.5 border-b py-1 border-[#C9CACC] text-base leading-10 font-medium cursor-pointer transition hover:text-primary_text"
                   onClick={() => onClickSearchedUser(user.name!, user.id!)}
                 >
                   <BiSolidUser className="w-6 h-6" />
