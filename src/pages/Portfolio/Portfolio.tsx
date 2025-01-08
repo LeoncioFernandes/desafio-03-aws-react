@@ -12,7 +12,7 @@ import { SocialNetwork } from '../../types/EnumSocialNetwork';
 import FormAddEditCard from '../../components/FormAddEditCard/FormAddEditCard';
 import { CardData, FormCardProps } from '../../types/CardTypes';
 import { toast } from "react-toastify";
-import { FaCheck, FaPen } from 'react-icons/fa6';
+import { FaPen } from 'react-icons/fa6';
 
 export default function Portfolio() {
 

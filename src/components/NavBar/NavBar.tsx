@@ -4,6 +4,7 @@ import ButtonLogin from './ButtonLogin';
 import { FaCheck, FaPen } from 'react-icons/fa6';
 import { useCreateLoginUser } from '../../context/useCreateLoginUser';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 type EditingProps = {
   onEditing: (onEdit: boolean) => void;
@@ -22,6 +23,7 @@ export default function NavBar({onEditing}: EditingProps) {
   function setLogoff(logoof: boolean){
     if(logoof){
       setViewLogoof(false)
+      toast.dismiss();
       user.logoffUserByUid(Number(id))
       navigate("/")
     }
